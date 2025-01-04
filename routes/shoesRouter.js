@@ -1,10 +1,12 @@
 const { Router } = require("express");
-const indexController = require("../controllers/indexController");
-//const shoesControllers = require("../controllers/shoesController");
+const shoesControllers = require("../controllers/shoesController");
 
 const shoesRouter = Router();
 
-shoesRouter.get("/", indexController.getIndex);
+shoesRouter.get("/", shoesControllers.getIndex);
+shoesRouter.get("/shoes", shoesControllers.getAllShoes);
+
+
 
 //get all shoeses
 //get 1 shoes details
