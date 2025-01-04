@@ -2,6 +2,14 @@
 
 const { Client } = require("pg");
 require("dotenv").config();
+/*
+ * Shoe inventory
+ * Table: categories
+ *  Columns: id, category
+ *  Values: Racing, Daily trainer, Trail, Stability, Value, Other
+ * Table: shoes
+ *  Columns: id, category_id, name, brand, color, size, price, added
+ */
 
 const CATEGORIES_SQL = `
 DROP TABLE IF EXISTS categories;
