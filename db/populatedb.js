@@ -16,11 +16,11 @@ DROP TABLE IF EXISTS categories;
 
 CREATE TABLE IF NOT EXISTS categories (
   id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,  
-  category VARCHAR ( 64 ) NOT NULL,
-  UNIQUE (category)
+  shoetype VARCHAR ( 64 ) NOT NULL,
+  UNIQUE (shoetype)
 );
 
-INSERT INTO categories (category) 
+INSERT INTO categories (shoetype) 
 VALUES ('Racing'), ('Daily trainer'), ('Trail'), ('Stability'), ('Value'), ('Other');
 `
   ;
