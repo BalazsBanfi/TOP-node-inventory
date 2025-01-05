@@ -1,13 +1,18 @@
 const { Router } = require("express");
-const shoesControllers = require("../controllers/shoesController");
+const shoesController = require("../controllers/shoesController");
 
 const shoesRouter = Router();
 
-shoesRouter.get("/", shoesControllers.getIndex);
-shoesRouter.get("/shoes", shoesControllers.getAllShoes);
-shoesRouter.get("/new", shoesControllers.getNewShoes);
-shoesRouter.get("/shoes/:id", shoesControllers.getShoesById);
-shoesRouter.post("/new", shoesControllers.postNewShoes);
+shoesRouter.get("/", shoesController.getIndex);
+shoesRouter.get("/shoes", shoesController.getAllShoes);
+shoesRouter.get("/new", shoesController.getNewShoes);
+shoesRouter.get("/shoes/:id", shoesController.getShoesById);
+shoesRouter.post("/new", shoesController.postNewShoes);
+shoesRouter.get("/delete", shoesController.getDeleteAllShoes);
+shoesRouter.get(
+    "/shoes/:id/delete",
+    shoesController.getDeleteShoesById
+);
 
 
 

@@ -1,6 +1,5 @@
 const pool = require("./pool");
-const asyncHandler = require("express-async-handler");
-const { CustomDbError } = require("../errors/CustomErrors");
+const { CustomDbError } = require("../utils/CustomErrors");
 
 
 const getAllShoes = async () => {
@@ -22,21 +21,17 @@ const addShoes = async (category_id, name, brand, color, size, price, date) => {
   );
 };
 
+const deleteAllShoes = asyncHandler(async () => {
+  await pool.query("DELETE FROM shoes");
+});
+
+const deleteShoesById = asyncHandler(async (id) => {
+  await pool.query("DELETE FROM shoes WHERE id = $1", [id]);
+});
 
 
 module.exports = {
-  getAllShoes, getShoesById, addShoes
+  getAllShoes, getShoesById, addShoes, deleteAllShoes, deleteShoesById
 };
 
-/*
 
-
-
-const deleteMessageById = asyncHandler(async (messageId) => {
-  await pool.query("DELETE FROM messages WHERE id = $1", [messageId]);
-});
-
-const deleteMessages = asyncHandler(async () => {
-  await pool.query("DELETE FROM messages");
-});
-*/
