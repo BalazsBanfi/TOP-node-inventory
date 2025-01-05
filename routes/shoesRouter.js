@@ -5,6 +5,8 @@ const shoesRouter = Router();
 
 shoesRouter.get("/", shoesControllers.getIndex);
 shoesRouter.get("/shoes", shoesControllers.getAllShoes);
+shoesRouter.get("/new", shoesControllers.getNewShoes);
+shoesRouter.get("/shoes/:id", shoesControllers.getShoesById);
 
 
 

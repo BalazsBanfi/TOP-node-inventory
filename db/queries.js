@@ -9,19 +9,18 @@ const getAllShoes = async () => {
   return rows;
 };
 
-/*
-
-const getAllMessages = async () => {
-  const { rows } = await pool.query("SELECT * FROM messages");
-  return rows;
-};
-
-const getMessage = async (messageId) => {
-  const { rows } = await pool.query("SELECT * FROM messages WHERE id= $1", [
-    messageId,
-  ]);
+const getShoesById = async (id) => {
+  const SQL = 'SELECT categories.shoetype, brand, name FROM shoes INNER JOIN categories ON shoes.category_id=categories.id WHERE shoes.id=$1;'
+  const { rows } = await pool.query(SQL, [id]);
   return rows[0];
 };
+
+module.exports = {
+  getAllShoes, getShoesById
+};
+
+/*
+
 
 const insertMessage = async (username, text, date) => {
   await pool.query(
@@ -38,6 +37,3 @@ const deleteMessages = asyncHandler(async () => {
   await pool.query("DELETE FROM messages");
 });
 */
-module.exports = {
-  getAllShoes
-};
