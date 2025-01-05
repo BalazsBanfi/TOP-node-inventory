@@ -16,7 +16,7 @@ const getShoesById = async (id) => {
 };
 
 const addShoes = async (category_id, name, brand, color, size, price, date) => {
-  const SQL = 'INSERT INTO messages (category_id, name, brand, color, size, price, date) VALUES ($1, $2, $3, $4, $5, $6, $7)'
+  const SQL = 'INSERT INTO shoes (category_id, name, brand, color, size, price, added) VALUES ($1, $2, $3, $4, $5, $6, $7)'
   await pool.query(SQL,
     [category_id, name, brand, color, size, price, date]
   );

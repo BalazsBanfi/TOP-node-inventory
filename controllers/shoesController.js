@@ -1,57 +1,10 @@
-const db = require("../db/queries");
-const { body, validationResult } = require("express-validator");
-const asyncHandler = require("express-async-handler");
-const { CustomDbError } = require("../errors/CustomErrors");
+const db = require('../db/queries');
+const { validationResult } = require('express-validator');
+const asyncHandler = require('express-async-handler');
+const { CustomDbError } = require('../errors/CustomErrors');
+const validateShoes = require('../utils/validator');
 
 // TO DO finish validate shoes and separete from controller
-
-const alphaErr = "must only contain letters.";
-const numericErr = "must only contain numbers.";
-const lengthNameErr = "must be between 1 and 64 characters.";
-const lengthColorErr = "must be between 1 and 16 characters.";
-
-//category_id, name, brand, color, size, price, added 
-
-const validateShoes = [
-  body("name")
-    .trim()
-    .notEmpty()
-    .withMessage("Shoes name can not be empty.")
-    .isLength({ min: 1, max: 64 })
-    .withMessage(`Name of shoes ${lengthNameErr}`),
-  body("brand")
-    .trim()
-    .notEmpty()
-    .withMessage("Brand can not be empty.")
-    .isLength({ min: 1, max: 64 })
-    .withMessage(`Brand ${lengthNameErr}`),
-  body("color")
-    .trim()
-    .notEmpty()
-    .withMessage("Color can not be empty.")
-    .isAlpha()
-    .withMessage(`Color ${alphaErr}`)
-    .isLength({ min: 1, max: 16 })
-    .withMessage(`Color ${lengthColorErr}`),
-  body("size")
-    .trim()
-    .notEmpty()
-    .withMessage("Color can not be empty.")
-    .isNumeric()
-    .withMessage(`Size ${numericErr}`)
-    .isLength({ min: 1, max: 16 })
-    .withMessage(`Color ${lengthColorErr}`),
-  body("price")
-    .trim()
-    .notEmpty()
-    .withMessage("Price can not be empty.")
-    .isNumeric()
-    .withMessage(`Price ${numericErr}`)
-    .isLength({ min: 1, max: 16 })
-    .withMessage(`Price ${lengthColorErr}`),
-
-];
-
 
 // Get the index page
 const getIndex = asyncHandler(async (req, res) => {
@@ -85,13 +38,12 @@ const getShoesById = asyncHandler(async (req, res) => {
   res.status(200).send(shoes);
 });
 
-//Post new shoes to db, TO DO: add validate!!
 const postNewShoes = [
   validateShoes,
   asyncHandler(async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      res.status(501).send(errors.array);
+      res.status(501).send(errors.array());
     } else {
       const { category_id, name, brand, color, size, price, added } = req.body;
       await db.addShoes(category_id, name, brand, color, size, price, new Date());
