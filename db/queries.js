@@ -15,19 +15,22 @@ const getShoesById = async (id) => {
   return rows[0];
 };
 
+const addShoes = async (category_id, name, brand, color, size, price, date) => {
+  const SQL = 'INSERT INTO messages (category_id, name, brand, color, size, price, date) VALUES ($1, $2, $3, $4, $5, $6, $7)'
+  await pool.query(SQL,
+    [category_id, name, brand, color, size, price, date]
+  );
+};
+
+
+
 module.exports = {
-  getAllShoes, getShoesById
+  getAllShoes, getShoesById, addShoes
 };
 
 /*
 
 
-const insertMessage = async (username, text, date) => {
-  await pool.query(
-    "INSERT INTO messages (username, text, added) VALUES ($1, $2, $3)",
-    [username, text, date]
-  );
-};
 
 const deleteMessageById = asyncHandler(async (messageId) => {
   await pool.query("DELETE FROM messages WHERE id = $1", [messageId]);
