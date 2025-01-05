@@ -38,6 +38,7 @@ const getShoesById = asyncHandler(async (req, res) => {
   res.status(200).send(shoes);
 });
 
+// Add new shoes to db
 const postNewShoes = [
   validateShoes,
   asyncHandler(async (req, res) => {
@@ -52,11 +53,13 @@ const postNewShoes = [
   }),
 ];
 
+// Delete all shoes from db
 const getDeleteAllShoes = asyncHandler(async (req, res) => {
   await db.deleteAllShoes();
   res.redirect("/");
 });
 
+// Delete one shoes by id from db
 const getDeleteShoesById = asyncHandler(async (req, res) => {
   const { id } = req.params;
   await db.deleteShoesById(id);
