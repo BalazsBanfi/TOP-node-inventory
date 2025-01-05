@@ -46,8 +46,9 @@ const postNewShoes = [
     if (!errors.isEmpty()) {
       res.status(501).send(errors.array());
     } else {
-      const { category_id, name, brand, color, size, price, added } = req.body;
-      await db.addShoes(category_id, name, brand, color, size, price, new Date());
+      req.body.date = new Date();
+      //const { category_id, name, brand, color, size, price, added } = req.body;
+      await db.addShoes(req.body);
       res.redirect("/");
     }
   }),
@@ -66,31 +67,33 @@ const getDeleteShoesById = asyncHandler(async (req, res) => {
   res.redirect("/");
 });
 
-// TO DO getUpdateShoesById and postUpdateShoesById
-
-module.exports = { getIndex, getAllShoes, getNewShoes, getShoesById, postNewShoes, getDeleteAllShoes, getDeleteShoesById };
-
-
-/*
-
-const getDeleteMessageById = asyncHandler(async (req, res) => {
-  const { id } = req.params;
-  await db.deleteMessageById(id);
-  res.redirect("/");
+// Fetch 1 shoes from db
+const getUpdateShoesById = asyncHandler(async (req, res) => {
+  const id = parseInt(req.params.id);
+  if (isNaN(id)) {
+    throw new CustomDbError("Wrong parameter");
+  }
+  const shoes = await db.getShoesById(id);
+  if (shoes == undefined) {
+    throw new CustomDbError("No asked shoes in database");
+  }
+  res.status(200).send(shoes);
 });
 
-const getDeleteMessages = asyncHandler(async (req, res) => {
-  await db.deleteMessages();
-  res.redirect("/");
-});
+// Update shoes in db
+const postUpdateShoesById = [
+  validateShoes,
+  asyncHandler(async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      res.status(501).send(errors.array());
+    } else {
+      req.body.id = req.params.id;
+      await db.updateShoes(req.body);
+      res.redirect(`/shoes/${req.params.id}`);
+    }
+  }),
+];
 
-module.exports = {
-  getMessages,
-  getNewMessage,
-  getMessageById,
-  postNewMessage,
-  getDeleteMessageById,
-  getDeleteMessages,
-};
 
-*/
+module.exports = { getIndex, getAllShoes, getNewShoes, getShoesById, postNewShoes, getDeleteAllShoes, getDeleteShoesById, getUpdateShoesById, postUpdateShoesById };
