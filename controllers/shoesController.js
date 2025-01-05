@@ -65,6 +65,9 @@ const getDeleteShoesById = asyncHandler(async (req, res) => {
   await db.deleteShoesById(id);
   res.redirect("/");
 });
+
+// TO DO getUpdateShoesById and postUpdateShoesById
+
 module.exports = { getIndex, getAllShoes, getNewShoes, getShoesById, postNewShoes, getDeleteAllShoes, getDeleteShoesById };
 
 

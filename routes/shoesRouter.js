@@ -13,6 +13,11 @@ shoesRouter.get(
     "/shoes/:id/delete",
     shoesController.getDeleteShoesById
 );
+shoesRouter.get(
+    "/shoes/:id/edit",
+    shoesController.getUpdateShoesById
+);
+shoesRouter.post("/shoes/:id/edit", shoesController.postUpdateShoesById);
 
 
 module.exports = shoesRouter;
