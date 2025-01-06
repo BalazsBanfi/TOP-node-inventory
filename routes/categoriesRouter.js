@@ -1,23 +1,23 @@
 const { Router } = require("express");
-const shoesRouter = Router();
-const shoesControllers = require("../controllers/shoesController");
+const categoryController = require("../controllers/categoryController");
 
-//get all shoeses
-//get 1 shoes details
-//get new shoes
-//post new shoes
-//delete 1 shoes
-//update 1 shoes
-//delete all shoes
+const categoryRouter = Router();
 
-shoesRouter.get("/", shoesControllers.getAllShoes);
-shoesRouter.get("/new", shoesControllers.getNewShoes);
-shoesRouter.post("/new", shoesControllers.postNewShoes);
-shoesRouter.get("/delete", shoesControllers.getDeleteAllShoes);
-shoesRouter.get("/shoes/:id", shoesControllers.getShoeById);
-shoesRouter.get(
-    "/shoes/:id/delete",
-    shoesControllers.getDeleteShoesById
+categoryRouter.get("/", categoryController.getIndex);
+categoryRouter.get("/category", categoryController.getAllCategory);
+categoryRouter.get("/new", categoryController.getNewCategory);
+categoryRouter.get("/category/:id", categoryController.getCategoryById);
+categoryRouter.post("/new", categoryController.postNewCategory);
+categoryRouter.get("/delete", categoryController.getDeleteAllCategory);
+categoryRouter.get(
+    "/category/:id/delete",
+    categoryController.getDeleteCategoryById
 );
+categoryRouter.get(
+    "/category/:id/edit",
+    categoryController.getUpdateCategoryById
+);
+categoryRouter.post("/category/:id/edit", categoryController.postUpdateCategoryById);
 
-module.exports = shoesRouter;
+
+module.exports = categoryRouter;
