@@ -5,8 +5,6 @@ const numericErr = "must only contain numbers.";
 const lengthNameErr = "must be between 1 and 64 characters.";
 const lengthColorErr = "must be between 1 and 16 characters.";
 
-//category_id, name, brand, color, size, price, added 
-
 const validateShoes = [
     body("name")
         .trim()
@@ -45,5 +43,15 @@ const validateShoes = [
         .isLength({ min: 1, max: 16 })
         .withMessage(`Price ${lengthColorErr}`)
 ];
+
+const validateCategory = [
+    body("shoetype")
+        .trim()
+        .notEmpty()
+        .withMessage("Shoetype name can not be empty.")
+        .isLength({ min: 1, max: 64 })
+        .withMessage(`Shoetype ${lengthNameErr}`),
+];
+
 
 module.exports = validateShoes;

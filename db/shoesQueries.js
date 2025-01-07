@@ -1,7 +1,6 @@
 const pool = require("./pool");
 const { CustomDbError } = require("../utils/CustomErrors");
 
-
 const getAllShoes = async () => {
   const SQL = 'SELECT shoes.id, categories.shoetype, brand, name FROM shoes INNER JOIN categories ON shoes.category_id=categories.id ORDER BY shoes.id;'
   const { rows } = await pool.query(SQL);
@@ -35,7 +34,6 @@ const updateShoes = async (shoes) => {
     [shoes.category_id, shoes.name, shoes.brand, shoes.color, shoes.size, shoes.price, shoes.id]
   );
 };
-
 
 module.exports = {
   getAllShoes, getShoesById, addShoes, deleteAllShoes, deleteShoesById, updateShoes

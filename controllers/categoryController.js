@@ -1,59 +1,51 @@
-const db = require('../db/shoesQueries');
+const db = require('../db/categoryQueries');
 const { validationResult } = require('express-validator');
 const asyncHandler = require('express-async-handler');
 const { CustomDbError } = require('../utils/CustomErrors');
-const validateShoes = require('../utils/validator');
+const validateCategory = require('../utils/validator');
 
-// TO DO finish validate shoes and separete from controller
 
-// Get the index page
-const getIndex = asyncHandler(async (req, res) => {
-  res.status(200).send({ page: 'index page' });
-});
-
-//Fetch all shoes from db
-const getAllShoes = asyncHandler(async (req, res) => {
-  const shoes = await db.getAllShoes();
-  if (!shoes.length) {
-    throw new CustomDbError("No shoes in database");
+//Fetch all categories from db
+const getAllCategory = asyncHandler(async (req, res) => {
+  const category = await db.getAllCategory();
+  if (!category.length) {
+    throw new CustomDbError("No category in database");
   }
-  res.status(200).send(shoes);
+  res.status(200).send(category);
 });
 
-// Get the new shoes page
-const getNewShoes = (req, res) => {
-  res.status(200).send({ page: 'add new shoes page' });
+// Get the new category page
+const getNewCategory = (req, res) => {
+  res.status(200).send({ page: 'new category page' });
 };
 
-// Fetch 1 shoes from db
-const getShoesById = asyncHandler(async (req, res) => {
+// Fetch 1 category from db
+const getCategoryById = asyncHandler(async (req, res) => {
   const id = parseInt(req.params.id);
   if (isNaN(id)) {
     throw new CustomDbError("Wrong parameter");
   }
-  const shoes = await db.getShoesById(id);
-  if (shoes == undefined) {
-    throw new CustomDbError("No asked shoes in database");
+  const category = await db.getCategoryById(id);
+  if (category == undefined) {
+    throw new CustomDbError("No asked category in database");
   }
-  res.status(200).send(shoes);
+  res.status(200).send(category);
 });
 
-// Add new shoes to db
-const postNewShoes = [
-  validateShoes,
+// Add new category to db
+const postNewCategory = [
+  validateCategory,
   asyncHandler(async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       res.status(501).send(errors.array());
     } else {
-      req.body.date = new Date();
-      //const { category_id, name, brand, color, size, price, added } = req.body;
-      await db.addShoes(req.body);
+      await db.addCategory(req.body.shoetype);
       res.redirect("/");
     }
   }),
 ];
-
+/*
 // Delete all shoes from db
 const getDeleteAllShoes = asyncHandler(async (req, res) => {
   await db.deleteAllShoes();
@@ -95,5 +87,5 @@ const postUpdateShoesById = [
   }),
 ];
 
-
-module.exports = { getIndex, getAllShoes, getNewShoes, getShoesById, postNewShoes, getDeleteAllShoes, getDeleteShoesById, getUpdateShoesById, postUpdateShoesById };
+*/
+module.exports = { getAllCategory, getNewCategory, getCategoryById, postNewCategory };
