@@ -6,7 +6,7 @@ require("dotenv").config();
  * Shoe inventory
  * Table: categories
  *  Columns: id, category
- *  Values: Racing, Daily trainer, Trail, Stability, Value, Other
+ *  Values: Daily trainer, Racing, Trail, Stability, Value, Other
  * Table: shoes
  *  Columns: id, category_id, name, brand, color, size, price, added
  */
@@ -21,7 +21,7 @@ CREATE TABLE IF NOT EXISTS categories (
 );
 
 INSERT INTO categories (shoetype) 
-VALUES ('Racing'), ('Daily trainer'), ('Trail'), ('Stability'), ('Value'), ('Other');
+VALUES ('Daily trainer'), ('Racing'), ('Trail'), ('Stability'), ('Value'), ('Other');
 `
   ;
 

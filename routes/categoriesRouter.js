@@ -5,10 +5,10 @@ const categoryRouter = Router();
 //TO DO category add post
 categoryRouter.get("/", categoryController.getAllCategory);
 categoryRouter.get("/new", categoryController.getNewCategory);
+categoryRouter.get("/delete", categoryController.getDeleteAllCategory);
 categoryRouter.get("/:id", categoryController.getCategoryById);
 categoryRouter.post("/new", categoryController.postNewCategory);
-/*categoryRouter.get("/delete", categoryController.getDeleteAllCategory);
-categoryRouter.get(
+/*categoryRouter.get(
     "/category/:id/delete",
     categoryController.getDeleteCategoryById
 );

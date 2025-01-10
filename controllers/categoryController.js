@@ -45,13 +45,14 @@ const postNewCategory = [
     }
   }),
 ];
-/*
-// Delete all shoes from db
-const getDeleteAllShoes = asyncHandler(async (req, res) => {
-  await db.deleteAllShoes();
+
+
+// Delete all shoes from db except default
+const getDeleteAllCategory = asyncHandler(async (req, res) => {
+  await db.deleteAllCategories();
   res.redirect("/");
 });
-
+/*
 // Delete one shoes by id from db
 const getDeleteShoesById = asyncHandler(async (req, res) => {
   const { id } = req.params;
@@ -88,4 +89,4 @@ const postUpdateShoesById = [
 ];
 
 */
-module.exports = { getAllCategory, getNewCategory, getCategoryById, postNewCategory };
+module.exports = { getAllCategory, getNewCategory, getCategoryById, postNewCategory, getDeleteAllCategory };

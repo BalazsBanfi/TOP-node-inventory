@@ -23,11 +23,12 @@ const addCategory = async (shoetype) => {
   const SQL = 'INSERT INTO categories (shoetype) VALUES ($1);'
   await pool.query(SQL, [shoetype]);
 };
-/*
-const deleteAllShoes = async () => {
-  await pool.query('DELETE FROM shoes');
+
+const deleteAllCategories = async () => {
+  await pool.query('DELETE FROM categories WHERE id>1');
 };
 
+/*
 const deleteShoesById = async (id) => {
   await pool.query('DELETE FROM shoes WHERE id = $1', [id]);
 };
@@ -39,4 +40,4 @@ const updateShoes = async (shoes) => {
   );
 };
 */
-module.exports = { getAllCategory, getCategoryById, addCategory, getCategoryByValue };
+module.exports = { getAllCategory, getCategoryById, addCategory, getCategoryByValue, deleteAllCategories };
