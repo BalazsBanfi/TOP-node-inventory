@@ -7,11 +7,16 @@ const getAllCategory = async () => {
   return rows;
 };
 
-
 const getCategoryById = async (id) => {
   const SQL = 'SELECT * FROM shoes WHERE category_id=$1;'
   const { rows } = await pool.query(SQL, [id]);
   return rows[0] ? rows : undefined;
+};
+
+const getCategoryByValue = async (shoetype) => {
+  const SQL = 'SELECT shoetype FROM categories WHERE shoetype=$1;'
+  const { rows } = await pool.query(SQL, [shoetype]);
+  return rows[0] ? rows[0] : undefined;
 };
 
 const addCategory = async (shoetype) => {
@@ -34,4 +39,4 @@ const updateShoes = async (shoes) => {
   );
 };
 */
-module.exports = { getAllCategory, getCategoryById, addCategory };
+module.exports = { getAllCategory, getCategoryById, addCategory, getCategoryByValue };

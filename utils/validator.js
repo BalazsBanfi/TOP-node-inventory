@@ -1,4 +1,6 @@
 const { body } = require('express-validator');
+const db = require('../db/categoryQueries');
+
 
 const alphaErr = "must only contain letters.";
 const numericErr = "must only contain numbers.";
@@ -50,7 +52,14 @@ const bodyCategory = [
         .notEmpty()
         .withMessage("Category name can not be empty.")
         .isLength({ min: 1, max: 64 })
-        .withMessage(`Category ${lengthNameErr}`),
+        .withMessage(`Category ${lengthNameErr}`)
+        .custom(async value => {
+            const category = await db.getCategoryByValue(value)
+            console.log(category);
+            if (category) {
+                throw new Error('This category already exists');
+            }
+        }),
 ];
 
 module.exports = { bodyShoes, bodyCategory };
