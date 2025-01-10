@@ -2,7 +2,7 @@ const db = require('../db/categoryQueries');
 const { validationResult } = require('express-validator');
 const asyncHandler = require('express-async-handler');
 const { CustomDbError } = require('../utils/CustomErrors');
-const validateCategory = require('../utils/validator');
+const validator = require('../utils/validator');
 
 
 //Fetch all categories from db
@@ -34,7 +34,7 @@ const getCategoryById = asyncHandler(async (req, res) => {
 
 // Add new category to db
 const postNewCategory = [
-  validateCategory,
+  validator.bodyCategory,
   asyncHandler(async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {

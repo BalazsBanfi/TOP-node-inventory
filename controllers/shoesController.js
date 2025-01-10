@@ -2,7 +2,7 @@ const db = require('../db/shoesQueries');
 const { validationResult } = require('express-validator');
 const asyncHandler = require('express-async-handler');
 const { CustomDbError } = require('../utils/CustomErrors');
-const validateShoes = require('../utils/validator');
+const validator = require('../utils/validator');
 
 // TO DO finish validate shoes and separete from controller
 
@@ -40,14 +40,13 @@ const getShoesById = asyncHandler(async (req, res) => {
 
 // Add new shoes to db
 const postNewShoes = [
-  validateShoes,
+  validator.bodyShoes,
   asyncHandler(async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       res.status(501).send(errors.array());
     } else {
       req.body.date = new Date();
-      //const { category_id, name, brand, color, size, price, added } = req.body;
       await db.addShoes(req.body);
       res.redirect("/");
     }
@@ -82,7 +81,7 @@ const getUpdateShoesById = asyncHandler(async (req, res) => {
 
 // Update shoes in db
 const postUpdateShoesById = [
-  validateShoes,
+  validator.bodyShoes,
   asyncHandler(async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {

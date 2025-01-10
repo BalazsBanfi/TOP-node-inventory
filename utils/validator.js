@@ -5,7 +5,7 @@ const numericErr = "must only contain numbers.";
 const lengthNameErr = "must be between 1 and 64 characters.";
 const lengthColorErr = "must be between 1 and 16 characters.";
 
-const validateShoes = [
+const bodyShoes = [
     body("name")
         .trim()
         .notEmpty()
@@ -41,17 +41,16 @@ const validateShoes = [
         .isNumeric()
         .withMessage(`Price ${numericErr}`)
         .isLength({ min: 1, max: 16 })
-        .withMessage(`Price ${lengthColorErr}`)
+        .withMessage(`Price ${lengthColorErr}`),
 ];
 
-const validateCategory = [
+const bodyCategory = [
     body("shoetype")
         .trim()
         .notEmpty()
-        .withMessage("Shoetype name can not be empty.")
+        .withMessage("Category name can not be empty.")
         .isLength({ min: 1, max: 64 })
-        .withMessage(`Shoetype ${lengthNameErr}`),
+        .withMessage(`Category ${lengthNameErr}`),
 ];
 
-
-module.exports = validateShoes;
+module.exports = { bodyShoes, bodyCategory };

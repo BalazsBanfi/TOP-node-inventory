@@ -9,7 +9,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/', shoesRouter);
 app.use('/category', categoryRouter);
 
-
 // default error handler if page not found in router
 app.use((req, res, next) => {
     throw new CustomNotFoundError('Error 404, missing page')
