@@ -12,10 +12,10 @@ categoryRouter.get(
     "/:id/delete",
     categoryController.getDeleteCategoryById
 );
-/*categoryRouter.get(
-    "/category/:id/edit",
+categoryRouter.get(
+    "/:id/edit",
     categoryController.getUpdateCategoryById
 );
-categoryRouter.post("/category/:id/edit", categoryController.postUpdateCategoryById);
-*/
+categoryRouter.post("/:id/edit", categoryController.postUpdateCategoryById);
+
 module.exports = categoryRouter;

@@ -63,35 +63,36 @@ const getDeleteCategoryById = asyncHandler(async (req, res) => {
   res.redirect("/");
 });
 
-
-/*
-// Fetch 1 shoes from db
-const getUpdateShoesById = asyncHandler(async (req, res) => {
+// Fetch 1 category from db
+const getUpdateCategoryById = asyncHandler(async (req, res) => {
   const id = parseInt(req.params.id);
   if (isNaN(id)) {
     throw new CustomDbError("Wrong parameter");
   }
-  const shoes = await db.getShoesById(id);
-  if (shoes == undefined) {
-    throw new CustomDbError("No asked shoes in database");
+  const category = await db.getEditCategoryById(id);
+  if (category == undefined) {
+    throw new CustomDbError("No asked category in database");
   }
-  res.status(200).send(shoes);
+  res.status(200).send(category);
 });
 
-// Update shoes in db
-const postUpdateShoesById = [
-  validateShoes,
+
+// Update category in db
+const postUpdateCategoryById = [
+  validator.bodyCategory,
   asyncHandler(async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       res.status(501).send(errors.array());
     } else {
       req.body.id = req.params.id;
-      await db.updateShoes(req.body);
-      res.redirect(`/shoes/${req.params.id}`);
+      if (req.params.id == 1) {
+        throw new CustomDbError("Cannot change default category");
+      }
+      await db.updateCategory(req.body);
+      res.redirect(`/category`);
     }
   }),
 ];
 
-*/
-module.exports = { getAllCategory, getNewCategory, getCategoryById, postNewCategory, getDeleteAllCategory, getDeleteCategoryById };
+module.exports = { getAllCategory, getNewCategory, getCategoryById, postNewCategory, getDeleteAllCategory, getDeleteCategoryById, getUpdateCategoryById, postUpdateCategoryById };

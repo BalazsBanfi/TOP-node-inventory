@@ -33,12 +33,18 @@ const deleteCategoryById = async (id) => {
   await pool.query('UPDATE shoes SET category_id = $1 WHERE category_id = $2;', [1, id]);
   await pool.query('DELETE FROM categories WHERE id = $1;', [id]);
 };
-/*
-const updateShoes = async (shoes) => {
-  const SQL = 'UPDATE shoes SET category_id = $1, name = $2, brand = $3, color = $4, size = $5, price = $6 WHERE id = $7';
+
+const getEditCategoryById = async (id) => {
+  const SQL = 'SELECT * FROM categories WHERE id=$1;'
+  const { rows } = await pool.query(SQL, [id]);
+  return rows[0] ? rows : undefined;
+};
+
+const updateCategory = async (category) => {
+  const SQL = 'UPDATE categories SET shoetype = $1 WHERE id = $2';
   await pool.query(SQL,
-    [shoes.category_id, shoes.name, shoes.brand, shoes.color, shoes.size, shoes.price, shoes.id]
+    [category.shoetype, category.id]
   );
 };
-*/
-module.exports = { getAllCategory, getCategoryById, addCategory, getCategoryByValue, deleteAllCategories, deleteCategoryById };
+
+module.exports = { getAllCategory, getCategoryById, addCategory, getCategoryByValue, deleteAllCategories, deleteCategoryById, updateCategory, getEditCategoryById };
