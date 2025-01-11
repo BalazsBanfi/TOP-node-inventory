@@ -52,14 +52,19 @@ const getDeleteAllCategory = asyncHandler(async (req, res) => {
   await db.deleteAllCategories();
   res.redirect("/");
 });
-/*
-// Delete one shoes by id from db
-const getDeleteShoesById = asyncHandler(async (req, res) => {
+
+// Delete one category by id from db
+const getDeleteCategoryById = asyncHandler(async (req, res) => {
   const { id } = req.params;
-  await db.deleteShoesById(id);
+  if (id == 1) {
+    throw new CustomDbError("Cannot delete default category");
+  }
+  await db.deleteCategoryById(id);
   res.redirect("/");
 });
 
+
+/*
 // Fetch 1 shoes from db
 const getUpdateShoesById = asyncHandler(async (req, res) => {
   const id = parseInt(req.params.id);
@@ -89,4 +94,4 @@ const postUpdateShoesById = [
 ];
 
 */
-module.exports = { getAllCategory, getNewCategory, getCategoryById, postNewCategory, getDeleteAllCategory };
+module.exports = { getAllCategory, getNewCategory, getCategoryById, postNewCategory, getDeleteAllCategory, getDeleteCategoryById };

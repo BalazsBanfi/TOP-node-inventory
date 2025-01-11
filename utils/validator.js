@@ -55,7 +55,6 @@ const bodyCategory = [
         .withMessage(`Category ${lengthNameErr}`)
         .custom(async value => {
             const category = await db.getCategoryByValue(value)
-            console.log(category);
             if (category) {
                 throw new Error('This category already exists');
             }

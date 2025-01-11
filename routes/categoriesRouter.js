@@ -8,11 +8,11 @@ categoryRouter.get("/new", categoryController.getNewCategory);
 categoryRouter.get("/delete", categoryController.getDeleteAllCategory);
 categoryRouter.get("/:id", categoryController.getCategoryById);
 categoryRouter.post("/new", categoryController.postNewCategory);
-/*categoryRouter.get(
-    "/category/:id/delete",
+categoryRouter.get(
+    "/:id/delete",
     categoryController.getDeleteCategoryById
 );
-categoryRouter.get(
+/*categoryRouter.get(
     "/category/:id/edit",
     categoryController.getUpdateCategoryById
 );
