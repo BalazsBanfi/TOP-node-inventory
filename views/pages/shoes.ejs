@@ -1,0 +1,15 @@
+<%- include('../partials/head') %> <%- include('../partials/header') %>
+<div class="container">
+  <h1>Hi, this is my shoes inventory management page</h1>
+  <br /><br />
+
+  <% shoes.forEach((shoes, index) => { %>
+  <h2>Name: <%= shoes.name %></h2>
+  <p>Brand: <%= shoes.brand %></p>
+  <p>Shoetype: <%= shoes.shoetype %></p>
+  <a href="<%= `shoes/${shoes.id}` %>">Shoes details</a>
+  <hr />
+  <% }) %>
+</div>
+
+<%- include('../partials/footer') %>

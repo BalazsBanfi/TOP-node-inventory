@@ -1,16 +1,18 @@
 <%- include('../partials/head') %> <%- include('../partials/header') %>
 <div class="container">
-  <h1>Hi, this is my Mini messageboard</h1>
+  <h1>Hi, this is my shoes inventory management page</h1>
   <br /><br />
 
-  <% messages.forEach((message, index) => { %>
-  <h2>Message from: <%= message.username %></h2>
-  <p>Text: <%= message.text %></p>
-  <p>Added: <%= message.added.toLocaleDateString() %></p>
-  <a href="<%= `message/${message.id}` %>">Message details</a>
+  <ul class="list-group">
+    <li><a href="/" class="nav-link px-2 text-white">Home</a></li>
+    <li class="list-group-item">
+      <a href="/shoes" class="nav-link px-2">All shoes</a>
+    </li>
 
-  <hr />
-  <% }) %>
+    <li class="list-group-item">
+      <a href="/category" class="nav-link px-2">All categories</a>
+    </li>
+  </ul>
 </div>
 
 <%- include('../partials/footer') %>

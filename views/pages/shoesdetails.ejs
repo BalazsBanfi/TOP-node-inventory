@@ -1,0 +1,36 @@
+<%- include('../partials/head') %> <%- include('../partials/header') %>
+<div class="container">
+  <h1>Hi, this is my shoes details page</h1>
+  <br /><br />
+  <h2>Name: <%= shoes.name %></h2>
+  <p>Brand: <%= shoes.brand %></p>
+  <p>Shoetype: <%= shoes.shoetype %></p>
+  <p>Color: <%= shoes.color %></p>
+  <p>Size: <%= shoes.size %></p>
+  <p>Price: <%= shoes.price %> $</p>
+  <p>Added: <%= shoes.added.toLocaleDateString() %></p>
+  <p>
+    <a
+      href="/shoes/<%= shoes.id %>/delete"
+      onclick="return confirm('Are you sure you want to delete these shoes?');"
+      >Delete these shoes</a
+    >
+  </p>
+  <form
+    action="/shoes/<%= shoes.id %>/delete"
+    method="GET"
+    class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3"
+  >
+    <button
+      type="submit"
+      class="btn btn-danger"
+      onclick="return confirm('Are you sure you want to delete these shoes?');"
+    >
+      Delete
+    </button>
+  </form>
+
+  <a href="/">Back</a>
+  <hr />
+</div>
+<%- include('../partials/footer') %>

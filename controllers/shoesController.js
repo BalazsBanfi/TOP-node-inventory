@@ -1,4 +1,5 @@
 const db = require('../db/shoesQueries');
+const dbCat = require('../db/categoryQueries')
 const { validationResult } = require('express-validator');
 const asyncHandler = require('express-async-handler');
 const { CustomDbError } = require('../utils/CustomErrors');
@@ -8,7 +9,9 @@ const validator = require('../utils/validator');
 
 // Get the index page
 const getIndex = asyncHandler(async (req, res) => {
-  res.status(200).send({ page: 'index page' });
+  res.render("pages/index", {
+    title: "Shoes inventory",
+  });
 });
 
 //Fetch all shoes from db
@@ -17,13 +20,20 @@ const getAllShoes = asyncHandler(async (req, res) => {
   if (!shoes.length) {
     throw new CustomDbError("No shoes in database");
   }
-  res.status(200).send(shoes);
+  res.render("pages/shoes", {
+    shoes: shoes,
+    title: "All shoes",
+  });
 });
 
 // Get the new shoes page
-const getNewShoes = (req, res) => {
-  res.status(200).send({ page: 'add new shoes page' });
-};
+const getNewShoes = asyncHandler(async (req, res) => {
+  const category = await dbCat.getAllCategory();
+  res.render("pages/newshoes", {
+    category: category,
+    title: "Add new shoes"
+  });
+});
 
 // Fetch 1 shoes from db
 const getShoesById = asyncHandler(async (req, res) => {
@@ -35,7 +45,10 @@ const getShoesById = asyncHandler(async (req, res) => {
   if (shoes == undefined) {
     throw new CustomDbError("No asked shoes in database");
   }
-  res.status(200).send(shoes);
+  res.render("pages/shoesdetails", {
+    shoes: shoes,
+    title: "Shoes details",
+  });
 });
 
 // Add new shoes to db
@@ -44,9 +57,14 @@ const postNewShoes = [
   asyncHandler(async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      res.status(501).send(errors.array());
+      res.render("pages/newshoes", {
+        title: "Add new shoes",
+        errors: errors.array(),
+      });
     } else {
       req.body.date = new Date();
+      req.body.category_id = 2;
+      console.log(req.body)
       await db.addShoes(req.body);
       res.redirect("/");
     }

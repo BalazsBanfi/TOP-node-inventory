@@ -24,11 +24,10 @@ app.listen(PORT, () => {
 app.use((err, req, res, next) => {
     console.error(err);
     // We can now specify the `err.statusCode` that exists in our custom error class and if it does not exist it's probably an internal server error
-    res.status(err.statusCode || 500).send(err.message);
-    /*
-        res.status(err.statusCode || 500).render('pages/404', {
-            title: 'Error',
-            statusCode: err.statusCode,
-            message: err.message
-        });*/
+    //res.status(err.statusCode || 500).send(err.message);
+    res.status(err.statusCode || 500).render('pages/404', {
+        title: 'Error',
+        statusCode: err.statusCode,
+        message: err.message
+    });
 });

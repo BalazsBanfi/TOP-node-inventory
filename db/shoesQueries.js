@@ -8,7 +8,7 @@ const getAllShoes = async () => {
 };
 
 const getShoesById = async (id) => {
-  const SQL = 'SELECT categories.shoetype, brand, name FROM shoes INNER JOIN categories ON shoes.category_id=categories.id WHERE shoes.id=$1;'
+  const SQL = 'SELECT * FROM shoes INNER JOIN categories ON shoes.category_id=categories.id WHERE shoes.id=$1;'
   const { rows } = await pool.query(SQL, [id]);
   return rows[0];
 };
@@ -25,6 +25,7 @@ const deleteAllShoes = async () => {
 };
 
 const deleteShoesById = async (id) => {
+  console.log(id);
   await pool.query('DELETE FROM shoes WHERE id = $1', [id]);
 };
 
