@@ -1,0 +1,26 @@
+<%- include('../partials/head') %> <%- include('../partials/header') %>
+<div class="container">
+  <h1>Hi, this is my Mini messageboard</h1>
+  <br /><br />
+  <% const message = messages.id %>
+  <h2>Message from: <%= messages.username %></h2>
+  <p>Text: <%= messages.text %></p>
+  <p>Added: <%= messages.added.toLocaleDateString() %></p>
+  <form
+    action="/message/<%= messages.id %>/delete"
+    method="GET"
+    class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3"
+  >
+    <button
+      type="submit"
+      class="btn btn-danger"
+      onclick="return confirm('Are you sure you want to delete this message?');"
+    >
+      Delete
+    </button>
+  </form>
+
+  <a href="/">Back</a>
+  <hr />
+</div>
+<%- include('../partials/footer') %>

@@ -1,0 +1,11 @@
+<!-- views/partials/errors.ejs -->
+<% if (locals.errors) {%>
+<div style="color: red">
+  <p>Error on user input:</p>
+  <ul>
+    <% errors.forEach(function(error) { %>
+    <li><%= error.msg %></li>
+    <% }); %>
+  </ul>
+</div>
+<% } %>
